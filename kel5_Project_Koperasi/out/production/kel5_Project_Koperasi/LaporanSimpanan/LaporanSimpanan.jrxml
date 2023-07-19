@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7ff633d-9a5a-47cb-b5a0-f9b1b8bdfb2a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="478"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="522"/>
+	<queryString>
+		<![CDATA[SELECT dbo."tbTrsSimpanan".IdTransaksi, dbo."tbJenisSimpanan".NamaJenis,dbo."tbMember".NamaAnggota,dbo."tbTrsSimpanan".TanggalTransaksi,dbo."tbTrsSimpanan".JumlahSimpanan
+FROM dbo."tbTrsSimpanan"
+JOIN dbo."tbMember" ON dbo."tbTrsSimpanan".IdAnggota = dbo."tbTrsSimpanan".IdAnggota
+JOIN dbo."tbJenisSimpanan" ON dbo."tbTrsSimpanan".IdKategori = dbo."tbJenisSimpanan".IdKategori]]>
+	</queryString>
+	<field name="ID Transaksi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Jenis Simpanan" class="java.lang.String"/>
+	<field name="Nama Anggota" class="java.lang.String"/>
+	<field name="Tanggal Transaksi" class="java.lang.String"/>
+	<field name="Jumlah Simpanan" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="10" width="206" height="30" uuid="e9158a13-291c-458b-8112-9a2bd21cb913"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Koperasi Fabofa]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<line>
+				<reportElement x="-7" y="61" width="570" height="1" uuid="89762539-2426-48bf-b6a0-c1297337f81d"/>
+			</line>
+			<staticText>
+				<reportElement x="208" y="0" width="151" height="30" uuid="bdebd232-4ed6-4b14-9d75-13064b2ba435"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Laporan Simpanan]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="-6" y="0" width="90" height="20" uuid="8a249353-8960-431b-8e4a-af6cfc345dd2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d414d0c-5956-4efb-bb5f-b41af2a18465"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ID Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="-2" width="110" height="25" uuid="5b20fe74-a438-4a65-8a28-f6c9c3d98d4d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a5ffedd-4ed8-4fed-8ba6-ced5982b736b"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jenis Simpanan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="100" height="20" uuid="50f8712d-9184-4796-a326-b9cf4fc29ecb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df2a26e5-bc02-4bd7-bec8-a870b610fa13"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nama Anggota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="0" width="120" height="23" uuid="5d0ddd45-02cd-409f-a815-e17e2a81a932">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a258871f-6f49-4446-99f3-235e06002bda"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tanggal Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="0" width="100" height="20" uuid="da24bfa1-3890-4ea0-9320-e205a890a59f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="57562a4a-4faa-4fd0-9162-5cfe4cbaf671"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jumlah Simpanan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="-6" y="3" width="100" height="30" uuid="1497c527-18f7-4731-b949-c77623d5ab7d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d414d0c-5956-4efb-bb5f-b41af2a18465"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ID Transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="3" width="100" height="30" uuid="40990f43-a498-472b-a45c-e569fe85df64">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a5ffedd-4ed8-4fed-8ba6-ced5982b736b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Jenis Simpanan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="3" width="100" height="30" uuid="2353eea8-7277-44ad-803a-39db5ee6f76c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df2a26e5-bc02-4bd7-bec8-a870b610fa13"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Nama Anggota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="3" width="120" height="30" uuid="01a092ef-0673-4953-b918-557c9982bc69">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a258871f-6f49-4446-99f3-235e06002bda"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Tanggal Transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="3" width="100" height="30" uuid="fba3691d-2159-491a-a1af-8e15055d86a6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="57562a4a-4faa-4fd0-9162-5cfe4cbaf671"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Jumlah Simpanan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

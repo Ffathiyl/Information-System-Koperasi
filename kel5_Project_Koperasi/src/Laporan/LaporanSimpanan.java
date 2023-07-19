@@ -1,6 +1,12 @@
 package Laporan;
 
 import DBConnection.DBConnect;
+import com.toedter.calendar.JDateChooser;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,9 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class LaporanSimpanan extends JFrame{
     public JPanel LaporanSImpanan;
@@ -21,28 +29,35 @@ public class LaporanSimpanan extends JFrame{
     private JButton cariButton;
     private JLabel lblJml;
     private JButton semuaButton;
+    private JButton cetakButton;
+    private JPanel JpanelDari;
+    private JPanel JpanelSampai;
     private DefaultTableModel model = new DefaultTableModel();
     DBConnect connection = new DBConnect();
+    JDateChooser dateAwal = new JDateChooser();
+    JDateChooser dateAkhir = new JDateChooser();
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     public LaporanSimpanan(){
     model = new DefaultTableModel();
+    JpanelDari.add(dateAwal);
+    JpanelSampai.add(dateAkhir);
     tableLaporanSimpanan.setModel(model);
+    lblJml.setText("0");
     addColumn();
-    cbFilter.setSelectedIndex(0);
-    cbSubFIlter.setSelectedIndex(0);
         cariButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 long total = 0;
-
-                if (cbFilter.getSelectedItem()==null){
-                    JOptionPane.showMessageDialog(null,"Data Tidak Ditemukan!");
-                    return;
-                }
-                if (cbSubFIlter.getSelectedItem()==null){
-                    JOptionPane.showMessageDialog(null,"Data Tidak Ditemukan!");
+                if (dateAwal.getDate() == null || dateAkhir.getDate() == null){
+                    JOptionPane.showMessageDialog(LaporanSImpanan,"Isi tanggal terlebih dahulu!");
                     return;
                 }
                 loadDataSpec();
+                int k = tableLaporanSimpanan.getRowCount();
+                if (k == 0){
+                    JOptionPane.showMessageDialog(LaporanSImpanan,"Data tidak Ditemukan");
+                    return;
+                }
                 try{
                     int j = tableLaporanSimpanan.getModel().getRowCount();
                     for (int i = 0; i < j; i++){
@@ -102,8 +117,29 @@ public class LaporanSimpanan extends JFrame{
                 } catch (Exception ex){
 
                 }
-                cbFilter.setSelectedIndex(0);
-                cbSubFIlter.setSelectedIndex(0);
+            }
+        });
+        cetakButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = tableLaporanSimpanan.getRowCount();
+                if (i == 0){
+                    JOptionPane.showMessageDialog(null,"Data Laporan Kosong");
+                    return;
+                }
+                try{
+                    HashMap param = new HashMap();
+
+                    JRDataSource dataSource = new JRTableModelDataSource(tableLaporanSimpanan.getModel());
+                    JasperDesign jd = JRXmlLoader.load("C:\\College\\SEMESTER 2\\Project\\kel5_Project_Koperasi\\src\\LaporanSimpanan\\LaporanSimpanan.jrxml");
+                    JasperReport jr = JasperCompileManager.compileReport(jd);
+                    JasperPrint jp = JasperFillManager.fillReport(jr,param,dataSource);
+                    JasperViewer viewer = new JasperViewer(jp,false);
+                    viewer.setVisible(true);
+                    viewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                } catch (Exception ex){
+                    System.out.println("gagal "+ex);
+                }
             }
         });
     }
@@ -114,26 +150,29 @@ public class LaporanSimpanan extends JFrame{
         model.addColumn("Nama Anggota");
         model.addColumn("Tanggal Transaksi");
         model.addColumn("Jumlah Simpanan");
-        model.addColumn("Nama Admin");
-        model.addColumn("Lama Simpanan");
-        model.addColumn("Status");
     }
 
     public void loadDataSpec() {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
+        String tanggalAwal = formatter.format(dateAwal.getDate());
+        String tanggalAkhir = formatter.format(dateAkhir.getDate());
+
         try {
             DBConnect connection = new DBConnect();
-            connection.stat = connection.conn.createStatement();
-            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan,tbAdmin.Nama,t.LamaSimpanan, t.Status " +
+            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan " +
                     "FROM tbTrsSimpanan t " +
                     "JOIN tbMember ON t.IdAnggota = tbMember.IdAnggota " +
                     "JOIN tbJenisSimpanan ON t.IdJenisSimpanan = tbJenisSimpanan.IdJenisSimpanan " +
                     "JOIN tbAdmin ON t.IdAdmin = tbAdmin.IdAdmin " +
-                    "WHERE DATENAME(MONTH, t.TanggalTransaksi) = '" + cbSubFIlter.getSelectedItem()+"' " +
-                    "AND DATENAME(YEAR, t.TanggalTransaksi) = '"+cbFilter.getSelectedItem()+"'";
-            connection.result = connection.stat.executeQuery(query);
+                    "WHERE t.TanggalTransaksi BETWEEN ? AND ?";
+                    /*"WHERE DATENAME(MONTH, t.TanggalTransaksi) = '" + cbSubFIlter.getSelectedItem()+"' " +
+                    "AND DATENAME(YEAR, t.TanggalTransaksi) = '"+cbFilter.getSelectedItem()+"'";*/
+            connection.pstat = connection.conn.prepareStatement(query);
+            connection.pstat.setString(1,tanggalAwal);
+            connection.pstat.setString(2,tanggalAkhir);
+            connection.result = connection.pstat.executeQuery();
 
             DecimalFormat Rupiah = (DecimalFormat) DecimalFormat.getCurrencyInstance();
             DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
@@ -167,13 +206,6 @@ public class LaporanSimpanan extends JFrame{
 
                 obj[3] = TanggalTransaksi;
                 obj[4] = Rupiah.format(connection.result.getInt("JumlahSimpanan"));
-                obj[5] = connection.result.getString("Nama");
-                obj[6] = connection.result.getInt("LamaSimpanan");
-                if (connection.result.getString("Status").equals("1")){
-                    obj[7] = "Aktif";
-                } else {
-                    obj[7] = "Tidak Aktif";
-                }
                 model.addRow(obj);
             }
             connection.stat.close();
@@ -190,7 +222,7 @@ public class LaporanSimpanan extends JFrame{
         try {
             DBConnect connection = new DBConnect();
             connection.stat = connection.conn.createStatement();
-            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan,tbAdmin.Nama,t.LamaSimpanan, t.Status " +
+            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan " +
                     "FROM tbTrsSimpanan t " +
                     "JOIN tbMember ON t.IdAnggota = tbMember.IdAnggota " +
                     "JOIN tbJenisSimpanan ON t.IdJenisSimpanan = tbJenisSimpanan.IdJenisSimpanan " +
@@ -230,13 +262,6 @@ public class LaporanSimpanan extends JFrame{
 
                 obj[3] = TanggalTransaksi;
                 obj[4] = Rupiah.format(connection.result.getInt("JumlahSimpanan"));
-                obj[5] = connection.result.getString("Nama");
-                obj[6] = connection.result.getInt("LamaSimpanan");
-                if (connection.result.getString("Status").equals("1")){
-                    obj[7] = "Aktif";
-                } else {
-                    obj[7] = "Tidak Aktif";
-                }
                 model.addRow(obj);
             }
             connection.stat.close();
@@ -250,10 +275,12 @@ public class LaporanSimpanan extends JFrame{
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
+        //(t.JumlahSimpanan+(t.JumlahSimpanan*tbJenisSimpanan.Bunga/100))as Total
+
         try {
             DBConnect connection = new DBConnect();
             connection.stat = connection.conn.createStatement();
-            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan,tbAdmin.Nama,t.LamaSimpanan, t.Status " +
+            String query = "SELECT t.IdTrsSimpanan, tbJenisSimpanan.NamaJenis,tbMember.NamaAnggota,t.TanggalTransaksi,t.JumlahSimpanan " +
                     "FROM tbTrsSimpanan t " +
                     "JOIN tbMember ON t.IdAnggota = tbMember.IdAnggota " +
                     "JOIN tbJenisSimpanan ON t.IdJenisSimpanan = tbJenisSimpanan.IdJenisSimpanan " +
@@ -292,13 +319,6 @@ public class LaporanSimpanan extends JFrame{
 
                 obj[3] = TanggalTransaksi;
                 obj[4] = Rupiah.format(connection.result.getInt("JumlahSimpanan"));
-                obj[5] = connection.result.getString("Nama");
-                obj[6] = connection.result.getInt("LamaSimpanan");
-                if (connection.result.getString("Status").equals("1")){
-                    obj[7] = "Aktif";
-                } else {
-                    obj[7] = "Tidak Aktif";
-                }
                 model.addRow(obj);
             }
             connection.stat.close();

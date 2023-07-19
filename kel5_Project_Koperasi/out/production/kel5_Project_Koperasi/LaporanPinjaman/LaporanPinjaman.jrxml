@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanPinjaman" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e54fc5c-909d-4530-a456-5e427becfe8b">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ID Transaksi" class="java.lang.String"/>
+	<field name="Nama Anggota" class="java.lang.String"/>
+	<field name="Nama Kategori" class="java.lang.String"/>
+	<field name="Tanggal Transaksi" class="java.lang.String"/>
+	<field name="Total Pinjaman" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="0" width="207" height="40" uuid="6f722d60-7383-48ea-9d99-d0090aa187fb"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Koperasi Fabofa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="54" width="130" height="30" uuid="bb8e8309-bca7-434e-a970-87ca76570111"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Laporan Pinjaman]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="32" width="551" height="1" uuid="a266b55a-c10f-4107-8a90-9f5486700604"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="1" width="100" height="30" uuid="1c459e0a-da85-43b3-aa77-1a44d4df3598">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69315358-8f04-44ff-8073-c127582be961"/>
+				</reportElement>
+				<text><![CDATA[ID Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="1" width="100" height="30" uuid="bbbcab66-e3b0-437b-aa11-db8169f161a5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc2aa1be-d96f-4007-9542-28fdecd5efcb"/>
+				</reportElement>
+				<text><![CDATA[Nama Anggota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="1" width="100" height="30" uuid="65d03e6d-fce1-4d5c-8fc8-609fea3c8e68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2edc063-c5d9-4241-9f8b-bc55303a83ee"/>
+				</reportElement>
+				<text><![CDATA[Nama Kategori]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="1" width="100" height="30" uuid="df8f9593-bdde-4d4c-9df1-a578d8e6ec1f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd8c5742-56a2-4580-b615-63398d4da0e2"/>
+				</reportElement>
+				<text><![CDATA[Tanggal Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="1" width="100" height="30" uuid="5218ba64-efae-4eee-be41-aee2202a39c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d169aa66-1aa9-4c53-afcc-40d2e746fb2d"/>
+				</reportElement>
+				<text><![CDATA[Total Pinjaman]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="1" width="100" height="30" uuid="1dc9f1d1-d6a2-4d68-b08d-a453012e1313">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69315358-8f04-44ff-8073-c127582be961"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID Transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="1" width="100" height="30" uuid="9dd0fd04-0315-4406-80b7-7807d7e298eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc2aa1be-d96f-4007-9542-28fdecd5efcb"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nama Anggota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="1" width="100" height="30" uuid="46f8330c-0083-4a58-b002-671da0613d13">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2edc063-c5d9-4241-9f8b-bc55303a83ee"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nama Kategori}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="1" width="108" height="30" uuid="e4708d7a-2b37-4e61-8ce6-e13ce662d27a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd8c5742-56a2-4580-b615-63398d4da0e2"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tanggal Transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="1" width="100" height="30" uuid="6681e7d9-ef85-400d-8aee-df7e03ea8b45">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d169aa66-1aa9-4c53-afcc-40d2e746fb2d"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Pinjaman}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

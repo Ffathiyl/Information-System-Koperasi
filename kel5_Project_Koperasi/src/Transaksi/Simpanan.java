@@ -42,7 +42,7 @@ public class Simpanan extends JFrame {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Mengembalikan false untuk semua sel
-            }
+            };
         };
         tableSimpanan.setModel(model);
         addColumn();

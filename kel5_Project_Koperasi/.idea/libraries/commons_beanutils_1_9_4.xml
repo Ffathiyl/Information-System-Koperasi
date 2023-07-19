@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="commons-beanutils-1.9.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Laporan/commons-beanutils-1.9.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/commons-collections4-4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/itext-2.1.7.js8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Laporan/jasperreports-6.19.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
